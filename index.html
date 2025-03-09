@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroCast | Weather & Air Quality Monitor </title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <h1 data-text="AeroCast" class="salina-heading">AeroCast</h1>
+                <button id="setup-profile-btn" class="profile-btn header-profile-btn" aria-label="User Profile">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Enter city name">
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+                <button id="location-btn"><i class="fas fa-location-dot"></i></button>
+            </div>
+            
+            <!-- New: Weather Alerts Banner -->
+            <div id="alerts-banner" class="alerts-banner hidden">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span id="alert-message">No active weather alerts</span>
+                <button id="alert-details-btn"><i class="fas fa-info-circle"></i> Details</button>
+            </div>
+        </header>
+
+        <div class="error-container" id="error-container">
+            <p>Please enter a valid city name.</p>
+        </div>
+
+        <main>
+            <div class="top-row">
+                <!-- First column: Weather Info and Forecast -->
+                <section class="weather-forecast-column">
+                    <div class="weather-info">
+                        <h2 id="city-name">Loading...</h2>
+                        <p id="date-time">--</p>
+                        <div class="temperature">
+                            <h1 id="temperature">--°C</h1>
+                            <img id="weather-icon" src="" alt="Weather icon">
+                        </div>
+                        <p id="weather-description">--</p>
+                        
+                        <!-- New: UV Index Display -->
+                        <div class="uv-display">
+                            <div class="uv-index">
+                                <i class="fas fa-sun"></i>
+                                <span id="uv-value">--</span>
+                            </div>
+                            <div class="uv-label" id="uv-label">UV Index</div>
+                        </div>
+                    </div>
+                    
+                    <!-- New: Clothing Recommendations -->
+                    <div class="clothing-recommendations">
+                        <h2>What to Wear Today</h2>
+                        <div class="clothing-icons">
+                            <div id="clothing-icon-1" class="clothing-icon">
+                                <i class="fas fa-tshirt"></i>
+                            </div>
+                            <div id="clothing-icon-2" class="clothing-icon">
+                                <i class="fas fa-umbrella"></i>
+                            </div>
+                            <div id="clothing-icon-3" class="clothing-icon">
+                                <i class="fas fa-hat-cowboy"></i>
+                            </div>
+                        </div>
+                        <p id="clothing-recommendation">Checking weather conditions for clothing suggestions...</p>
+                    </div>
+                    
+                    <div class="forecast">
+                        <h2>3-Day Forecast</h2>
+                        <div class="forecast-container" id="forecast-container">
+                            <!-- Forecast data will be inserted here by JavaScript -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Second column: Air Quality Details -->
+                <section class="air-quality-column">
+                    <div class="aqi-info">
+                        <h2>Air Quality Index</h2>
+                        <div class="aqi-display">
+                            <p id="aqi-value" class="aqi-value-display">--</p>
+                            <p id="aqi-status" class="aqi-status-display">--</p>
+                        </div>
+                        <div class="current-aqi-details">
+                            <div class="mini-pollutant">
+                                <span>PM2.5: </span><span id="current-pm25">--</span>
+                            </div>
+                            <div class="mini-pollutant">
+                                <span>O₃: </span><span id="current-o3">--</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="air-quality-details">
+                        <h2>Air Quality Details</h2>
+                        <div class="aqi-details">
+                            <div class="pollutant">
+                                <p>PM2.5</p>
+                                <p id="pm25">-- μg/m³</p>
+                            </div>
+                            <div class="pollutant">
+                                <p>PM10</p>
+                                <p id="pm10">-- μg/m³</p>
+                            </div>
+                            <div class="pollutant">
+                                <p>O₃</p>
+                                <p id="o3">-- μg/m³</p>
+                            </div>
+                            <div class="pollutant">
+                                <p>NO₂</p>
+                                <p id="no2">-- μg/m³</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- New: Historical Trends Section -->
+                    <div class="historical-trends">
+                        <h2>Historical Comparison</h2>
+                        <div class="trend-container">
+                            <div class="trend-item">
+                                <p>Temperature vs. Avg</p>
+                                <div class="trend-indicator" id="temp-trend">
+                                    <span class="value">--</span>
+                                    <i class="fas fa-arrow-up"></i>
+                                </div>
+                            </div>
+                            <div class="trend-item">
+                                <p>AQI vs. Last Month</p>
+                                <div class="trend-indicator" id="aqi-trend">
+                                    <span class="value">--</span>
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="historical-data-btn" class="history-btn"><i class="fas fa-chart-line"></i> View Historical Data</button>
+                    </div>
+                </section>
+
+                <!-- Third column: Health Recommendations -->
+                <section class="health-column">
+                    <div class="health-recommendations">
+                        <h2>Health Recommendations</h2>
+                        <div class="health-content">
+                            <h3><i class="fas fa-lungs"></i> Air Quality</h3>
+                            <p id="health-recommendations">Based on current air quality conditions, it's advisable to maintain normal outdoor activities. The air quality is within acceptable levels for most individuals.</p>
+                            
+                            <h3><i class="fas fa-sun"></i> UV Exposure</h3>
+                            <p id="uv-recommendations">The UV index is moderate today. Apply SPF 30+ sunscreen if outdoors for extended periods, especially between 10am and 4pm. Wear sunglasses to protect your eyes.</p>
+                            
+                            <h3><i class="fas fa-cloud"></i> Weather Precautions</h3>
+                            <p id="weather-recommendations">Current temperatures are comfortable. Stay hydrated throughout the day and dress appropriately for the forecast conditions.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Health Profile Section (moved below recommendations) -->
+                    <div class="health-profile">
+                        <h2>Health Profile</h2>
+                        <div class="profile-status">
+                            <p id="profile-status-message">No health profile set up</p>
+                        </div>
+                        <div id="active-sensitivities" class="sensitivities hidden">
+                            <div class="sensitivity"><i class="fas fa-lungs"></i><span>Respiratory</span></div>
+                            <div class="sensitivity"><i class="fas fa-heart"></i><span>Heart</span></div>
+                            <div class="sensitivity"><i class="fas fa-leaf"></i><span>Allergies</span></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="details">
+                <div class="detail">
+                    <i class="fas fa-temperature-high"></i>
+                    <div>
+                        <p>Feels Like</p>
+                        <p id="feels-like">--°C</p>
+                    </div>
+                </div>
+                <div class="detail">
+                    <i class="fas fa-droplet"></i>
+                    <div>
+                        <p>Humidity</p>
+                        <p id="humidity">--%</p>
+                    </div>
+                </div>
+                <div class="detail">
+                    <i class="fas fa-wind"></i>
+                    <div>
+                        <p>Wind</p>
+                        <p id="wind-speed">-- km/h</p>
+                    </div>
+                </div>
+                <!-- New: UV Index Detail -->
+                <div class="detail">
+                    <i class="fas fa-sun"></i>
+                    <div>
+                        <p>UV Index</p>
+                        <p id="uv-index-detail">--</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- New: Modal dialogs for the new features -->
+        <div id="profile-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2>Your Health Profile</h2>
+                <form id="health-profile-form">
+                    <div class="form-group">
+                        <label>Age Group:</label>
+                        <select id="age-group">
+                            <option value="child">Child (0-12)</option>
+                            <option value="teen">Teen (13-19)</option>
+                            <option value="adult" selected>Adult (20-64)</option>
+                            <option value="senior">Senior (65+)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Health Conditions:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" id="respiratory" value="respiratory"> Respiratory issues (asthma, COPD)</label>
+                            <label><input type="checkbox" id="cardiovascular" value="cardiovascular"> Heart/Cardiovascular disease</label>
+                            <label><input type="checkbox" id="allergies" value="allergies"> Allergies/Hay fever</label>
+                            <label><input type="checkbox" id="skin" value="skin"> Sensitive skin</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Activity Level:</label>
+                        <select id="activity-level">
+                            <option value="low">Low (Mostly indoors)</option>
+                            <option value="moderate" selected>Moderate (Some outdoor activity)</option>
+                            <option value="high">High (Regular outdoor exercise)</option>
+                            <option value="athlete">Athlete (Intense training)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="save-btn">Save Profile</button>
+                </form>
+            </div>
+        </div>
+        
+        <div id="alerts-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2>Weather Alerts</h2>
+                <div id="alerts-container" class="alerts-container">
+                    <!-- Weather alerts will be inserted here -->
+                    <p class="no-alerts">No current weather alerts for this location.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="history-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2>Historical Weather & Air Quality</h2>
+                <div class="history-tabs">
+                    <button class="tab-btn active" data-tab="temperature">Temperature</button>
+                    <button class="tab-btn" data-tab="precipitation">Precipitation</button>
+                    <button class="tab-btn" data-tab="aqi">Air Quality</button>
+                </div>
+                <div class="tab-content">
+                    <div id="temperature-tab" class="tab-pane active">
+                        <h3>Temperature History</h3>
+                        <div class="history-chart" id="temp-chart">
+                            <!-- Temperature chart will be rendered here -->
+                        </div>
+                    </div>
+                    <div id="precipitation-tab" class="tab-pane">
+                        <h3>Precipitation History</h3>
+                        <div class="history-chart" id="precip-chart">
+                            <!-- Precipitation chart will be rendered here -->
+                        </div>
+                    </div>
+                    <div id="aqi-tab" class="tab-pane">
+                        <h3>Air Quality History</h3>
+                        <div class="history-chart" id="aqi-chart">
+                            <!-- AQI chart will be rendered here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Created by <span>Fahad Jeffrey</span> | Weather data from OpenWeatherMap</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html> 

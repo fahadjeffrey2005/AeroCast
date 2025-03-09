@@ -1,0 +1,2100 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Root variables for consistent styling */
+:root {
+    /* Modern color palette with darker theme */
+    --primary-bg: #050B19;
+    --secondary-bg: #0A1225;
+    --card-bg: rgba(16, 20, 35, 0.8);
+    --card-bg-hover: rgba(21, 27, 46, 0.9);
+    --accent-color: #4D85FF;
+    --accent-glow: rgba(77, 133, 255, 0.5);
+    --text-primary: #FFFFFF;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --text-tertiary: rgba(255, 255, 255, 0.5);
+    --success-color: #14B8A6;
+    --warning-color: #FFB020;
+    --danger-color: #FF3A59;
+    
+    /* Element styles */
+    --border-radius: 16px;
+    --card-border: 1px solid rgba(255, 255, 255, 0.08);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --transition: all 0.3s ease;
+    --glass-bg: rgba(16, 20, 35, 0.8);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+    
+    /* Typography - classic fonts */
+    --font-main: 'Lora', Georgia, serif;
+    --font-heading: 'EB Garamond', 'Times New Roman', serif;
+    --font-mono: 'Courier New', monospace;
+    
+    /* Sizes */
+    --container-max-width: 1200px;
+    --header-height: 70px;
+    --sidebar-width: 250px;
+}
+
+body {
+    font-family: var(--font-main);
+    background: linear-gradient(135deg, var(--primary-bg), var(--secondary-bg));
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-attachment: fixed;
+    position: relative;
+    line-height: 1.6;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/old-paper.png'), 
+                linear-gradient(135deg, var(--primary-bg), var(--secondary-bg));
+    background-size: 500px, cover;
+    background-position: center;
+    opacity: 0.03;
+    z-index: -1;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: 0;
+    margin-bottom: 0.5em;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+h3 {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+}
+
+/* Section headers with classic styling */
+.weather-info h2, .aqi-info h2, .air-quality-details h2, .forecast h2,
+.health-recommendations h2, .clothing-recommendations h2, .historical-trends h2, 
+.health-profile h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+    font-family: var(--font-heading);
+    letter-spacing: 0.01em;
+}
+
+/* Main container */
+.container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header styling */
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    position: relative;
+    width: 100%;
+}
+
+/* Header top section with profile button */
+.header-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+    position: relative;
+    padding: 0 10px;
+    height: 75px;
+}
+
+/* Profile button animation */
+@keyframes pulse-subtle {
+    0% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+    50% {
+        box-shadow: 0 4px 20px rgba(77, 133, 255, 0.2);
+    }
+    100% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.header-profile-btn {
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    border-radius: 50%;
+    background: rgba(16, 20, 35, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    color: var(--text-primary);
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -22.5px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    overflow: hidden;
+    animation: pulse-subtle 3s infinite ease-in-out;
+    transform: none;
+}
+
+.header-profile-btn i {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.header-profile-btn:hover {
+    background: rgba(16, 20, 35, 0.8);
+    border: 1px solid rgba(77, 133, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(77, 133, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.header-profile-btn:hover i {
+    color: var(--text-primary);
+    text-shadow: 0 0 10px rgba(77, 133, 255, 0.5);
+}
+
+.header-profile-btn:active {
+    background: rgba(16, 20, 35, 0.9);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);
+}
+
+.header-profile-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(77, 133, 255, 0.2), rgba(77, 133, 255, 0));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.header-profile-btn:hover::before {
+    opacity: 1;
+}
+
+/* Animation for the title */
+@keyframes titleGlow {
+    0% {
+        text-shadow: 0 0 10px rgba(77, 133, 255, 0.3);
+    }
+    50% {
+        text-shadow: 0 0 15px rgba(77, 133, 255, 0.5);
+    }
+    100% {
+        text-shadow: 0 0 10px rgba(77, 133, 255, 0.3);
+    }
+}
+
+/* App title with animation */
+.salina-heading {
+    font-size: 3.8rem;
+    font-weight: 700;
+    margin-bottom: 0;
+    position: relative;
+    letter-spacing: 0.01em;
+    color: var(--text-primary);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    font-family: 'EB Garamond', serif;
+    text-align: center;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent-color) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    display: inline-block;
+    animation: titleGlow 3s infinite ease-in-out;
+}
+
+.salina-heading::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    filter: blur(8px);
+    opacity: 0.7;
+}
+
+/* Make the title responsive */
+@media (max-width: 768px) {
+    .salina-heading {
+        font-size: 3.2rem;
+    }
+
+    .header-top {
+        margin-bottom: 10px;
+        height: 65px;
+    }
+    
+    .header-profile-btn {
+        width: 40px;
+        height: 40px;
+        right: 5px;
+        margin-top: -20px;
+    }
+    
+    .header-profile-btn i {
+        font-size: 1.3rem;
+    }
+    
+    .header-profile-btn:hover,
+    .header-profile-btn:active {
+        transform: scale(1.05);
+    }
+}
+
+@media (max-width: 480px) {
+    .salina-heading {
+        font-size: 2.6rem;
+        max-width: 80%;
+    }
+    
+    .header-top {
+        height: 55px;
+    }
+    
+    .header-profile-btn {
+        width: 38px;
+        height: 38px;
+        right: 0;
+        margin-top: -19px;
+    }
+    
+    .header-profile-btn i {
+        font-size: 1.2rem;
+    }
+    
+    .header-profile-btn:hover,
+    .header-profile-btn:active {
+        transform: scale(1.05);
+    }
+    
+    .search-container {
+        max-width: 95%;
+    }
+}
+
+/* Search container */
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: var(--card-bg);
+    border-radius: 50px;
+    padding: 5px;
+    width: 100%;
+    max-width: 500px;
+    transition: var(--transition);
+    border: var(--glass-border);
+    backdrop-filter: blur(10px);
+}
+
+.search-container:hover {
+    box-shadow: 0 0 15px var(--accent-glow);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+#search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-family: var(--font-main);
+}
+
+#search-input::placeholder {
+    color: var(--text-tertiary);
+    font-weight: 400;
+}
+
+#search-input:focus {
+    color: var(--text-primary);
+}
+
+/* Button styling */
+button {
+    background-color: transparent;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    color: var(--accent-color);
+    position: relative;
+    overflow: hidden;
+    font-family: var(--font-main);
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    transform: scale(0);
+    transition: var(--transition);
+    z-index: -1;
+}
+
+button:hover {
+    color: white;
+}
+
+button:hover::before {
+    transform: scale(1);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* Button overrides for special buttons */
+#setup-profile-btn,
+#historical-data-btn,
+#alert-details-btn {
+    width: auto;
+    height: auto;
+    border-radius: 30px;
+    background-color: rgba(77, 133, 255, 0.15);
+    border: 1px solid rgba(77, 133, 255, 0.3);
+    padding: 10px 20px;
+}
+
+#setup-profile-btn::before,
+#historical-data-btn::before,
+#alert-details-btn::before {
+    display: none;
+}
+
+#setup-profile-btn:hover,
+#historical-data-btn:hover,
+#alert-details-btn:hover {
+    background-color: rgba(77, 133, 255, 0.25);
+    color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(77, 133, 255, 0.2);
+}
+
+#setup-profile-btn:active,
+#historical-data-btn:active,
+#alert-details-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Button text in special buttons */
+#setup-profile-btn span,
+#historical-data-btn span,
+#alert-details-btn span {
+    margin-left: 8px;
+}
+
+/* Error container */
+.error-container {
+    background-color: rgba(255, 58, 89, 0.15);
+    border-left: 4px solid var(--danger-color);
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    display: none;
+}
+
+.error-container p {
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* Main content area */
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Top row with three columns */
+.top-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* Column styling */
+.weather-forecast-column, .air-quality-column, .health-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Weather info card */
+.weather-info {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    border: var(--glass-border);
+    position: relative;
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow);
+}
+
+/* Forecast section */
+.forecast {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    border: var(--glass-border);
+    backdrop-filter: blur(10px);
+}
+
+.forecast-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/* AQI info card */
+.aqi-info {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    border: var(--glass-border);
+    backdrop-filter: blur(10px);
+}
+
+/* Air quality details card */
+.air-quality-details {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    border: var(--glass-border);
+    backdrop-filter: blur(10px);
+}
+
+.aqi-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/* Health recommendations card */
+.health-recommendations {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    border: var(--glass-border);
+    backdrop-filter: blur(10px);
+    margin-bottom: 20px;
+}
+
+/* Details section */
+.details {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+/* Generic section styling */
+section {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Temperature and weather icon styling */
+.temperature {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px 0;
+    gap: 15px;
+}
+
+.temperature h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+    font-family: var(--font-heading);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+#weather-icon {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+#weather-description {
+    font-size: 1.1rem;
+    text-transform: capitalize;
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+}
+
+/* Detail items */
+.detail {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: var(--shadow);
+    border: var(--glass-border);
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.detail:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-3px);
+}
+
+.detail i {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+}
+
+.detail p:first-child {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0 0 5px 0;
+    font-weight: 500;
+    font-family: var(--font-main);
+    font-style: italic;
+}
+
+.detail p:last-child {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+    font-family: var(--font-heading);
+}
+
+/* Forecast card styling */
+.forecast-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    text-align: center;
+    transition: var(--transition);
+    border: var(--glass-border);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.forecast-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-3px);
+}
+
+.forecast-card img {
+    width: 50px;
+    height: 50px;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+    margin: 0 auto;
+    display: block;
+}
+
+.forecast-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+    letter-spacing: 0.01em;
+}
+
+.forecast-card .temp {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 12px 0;
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    transition: var(--transition);
+    display: block;
+}
+
+/* Apply gradient styles to AQI text and forecast temperatures */
+.forecast-card .temp.temp-freezing,
+.forecast-card .temp.temp-cold,
+.forecast-card .temp.temp-mild,
+.forecast-card .temp.temp-warm,
+.forecast-card .temp.temp-hot {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.forecast-card .description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    text-transform: capitalize;
+    margin: 0;
+    font-family: var(--font-main);
+    font-style: italic;
+}
+
+/* Footer with classic style */
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 15px 0;
+    color: var(--text-tertiary);
+    font-size: 0.9rem;
+    font-family: var(--font-main);
+    font-style: italic;
+}
+
+footer span {
+    color: var(--accent-color);
+    font-weight: 600;
+    font-family: var(--font-heading);
+    font-style: normal;
+}
+
+/* Temperature color classes with improved gradients */
+.temp-freezing {
+    color: #56CCF2;
+    background: linear-gradient(to right, #2F80ED, #56CCF2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 15px rgba(86, 204, 242, 0.4);
+}
+
+.temp-cold {
+    color: #56CCF2;
+    background: linear-gradient(to right, #56CCF2, #4FACFE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 15px rgba(79, 172, 254, 0.4);
+}
+
+.temp-mild {
+    color: #4D85FF;
+    background: linear-gradient(to right, #4D85FF, #84B8FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 15px rgba(77, 133, 255, 0.4);
+}
+
+.temp-warm {
+    color: #FEB47B;
+    background: linear-gradient(to right, #FF7E5F, #FEB47B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 15px rgba(254, 180, 123, 0.4);
+}
+
+.temp-hot {
+    color: #FF5E62;
+    background: linear-gradient(to right, #FF5E62, #FF9966);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 15px rgba(255, 94, 98, 0.4);
+}
+
+/* AQI color classes with improved gradients */
+.aqi-good {
+    color: #14B8A6;
+    background: linear-gradient(to right, #0EA5E9, #14B8A6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 15px rgba(20, 184, 166, 0.4);
+}
+
+.aqi-moderate {
+    color: #FACC15;
+    background: linear-gradient(to right, #FACC15, #FB923C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 15px rgba(250, 204, 21, 0.4);
+}
+
+.aqi-unhealthy-sensitive {
+    color: #FB923C;
+    background: linear-gradient(to right, #FB923C, #F87171);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 15px rgba(251, 146, 60, 0.4);
+}
+
+.aqi-unhealthy {
+    color: #F87171;
+    background: linear-gradient(to right, #F87171, #EF4444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 15px rgba(248, 113, 113, 0.4);
+}
+
+.aqi-very-unhealthy {
+    color: #A855F7;
+    background: linear-gradient(to right, #EF4444, #A855F7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+}
+
+.aqi-hazardous {
+    color: #7A1921;
+    background: linear-gradient(to right, #991B1B, #7A1921);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 15px rgba(153, 27, 27, 0.4);
+}
+
+/* Enhanced AQI display */
+.aqi-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 20px 0;
+    position: relative;
+}
+
+.aqi-display::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(77, 133, 255, 0.08), transparent 70%);
+    z-index: -1;
+}
+
+.aqi-value-display {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 10px;
+    font-family: var(--font-heading);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.aqi-status-display {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 6px 18px;
+    border-radius: 30px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    text-transform: capitalize;
+}
+
+/* AQI status display specific styles */
+.aqi-status-display.aqi-good,
+.aqi-status-display.aqi-moderate,
+.aqi-status-display.aqi-unhealthy-sensitive,
+.aqi-status-display.aqi-unhealthy,
+.aqi-status-display.aqi-very-unhealthy,
+.aqi-status-display.aqi-hazardous {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Add a glowing pulsing effect to the temperature display */
+.temperature h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+    font-family: var(--font-heading);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Section heading styles */
+.current-weather .weather-info h2,
+.aqi-info h2,
+.health-recommendations h2 {
+    margin-bottom: 15px;
+    position: relative;
+    font-size: 1.2rem;
+}
+
+.current-weather .weather-info h2::after,
+.aqi-info h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 40px;
+    height: 2px;
+    background: var(--text-primary);
+}
+
+/* Moon icon for nighttime */
+#night-moon {
+    font-size: 2.5rem;
+    color: #ffffff;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    animation: moonGlow 3s infinite alternate;
+    z-index: 10;
+}
+
+#day-sun {
+    font-size: 2.5rem;
+    color: #fff5b8;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-shadow: 0 0 20px rgba(255, 245, 184, 0.6);
+    animation: sunGlow 3s infinite alternate;
+    z-index: 10;
+}
+
+@keyframes moonGlow {
+    from {
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    }
+    to {
+        text-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+    }
+}
+
+@keyframes sunGlow {
+    from {
+        text-shadow: 0 0 15px rgba(255, 245, 184, 0.5);
+    }
+    to {
+        text-shadow: 0 0 25px rgba(255, 245, 184, 0.8);
+    }
+}
+
+/* Forecast icon container for positioning the moon and sun */
+.forecast-icon-container {
+    position: relative;
+    display: inline-block;
+    margin: 5px 0;
+}
+
+/* Moon icon in forecast cards */
+.forecast-moon {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 1rem;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    animation: moonGlow 3s infinite alternate;
+}
+
+/* Sun icon in forecast cards */
+.forecast-sun {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 1rem;
+    color: #fff5b8;
+    text-shadow: 0 0 10px rgba(255, 245, 184, 0.6);
+    animation: sunGlow 3s infinite alternate;
+}
+
+/* Add styles for the loading indicator in health recommendations */
+.loading-recommendations {
+    color: var(--accent-color);
+    font-style: italic;
+    margin: 10px 0;
+    position: relative;
+    padding-left: 25px;
+}
+
+.loading-recommendations::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--accent-color);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: loadingSpin 1s linear infinite;
+}
+
+@keyframes loadingSpin {
+    from {
+        transform: translateY(-50%) rotate(0deg);
+    }
+    to {
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
+/* Styling for Weather Alerts Banner */
+.alerts-banner {
+    margin-top: 15px;
+    padding: 10px 16px;
+    background-color: rgba(245, 80, 80, 0.1);
+    border-left: 4px solid rgba(245, 80, 80, 0.8);
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    backdrop-filter: blur(5px);
+    box-shadow: var(--shadow);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(245, 80, 80, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(245, 80, 80, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(245, 80, 80, 0); }
+}
+
+.alerts-banner i {
+    color: #F55050;
+    font-size: 1.2rem;
+}
+
+.alerts-banner span {
+    flex: 1;
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+#alert-details-btn {
+    background-color: rgba(245, 80, 80, 0.15);
+    padding: 6px 12px;
+    border-radius: 30px;
+    border: 1px solid rgba(245, 80, 80, 0.3);
+    color: #F55050;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: var(--transition);
+}
+
+#alert-details-btn:hover {
+    background-color: rgba(245, 80, 80, 0.25);
+    transform: translateY(-2px);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* UV Index Display */
+.uv-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.uv-index {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.uv-index i {
+    color: #FFD700;
+    font-size: 1.1rem;
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.3));
+}
+
+#uv-value {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.uv-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* UV Index colors */
+.uv-low {
+    color: #3ea72d;
+}
+
+.uv-moderate {
+    color: #fff176;
+}
+
+.uv-high {
+    color: #fb8c00;
+}
+
+.uv-very-high {
+    color: #e53935;
+}
+
+.uv-extreme {
+    color: #8e24aa;
+}
+
+/* Clothing Recommendations */
+.clothing-recommendations {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    border: var(--glass-border);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
+}
+
+.clothing-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.clothing-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
+}
+
+.clothing-icon i {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    transition: var(--transition);
+}
+
+.clothing-icon.active {
+    background-color: rgba(77, 133, 255, 0.15);
+    border-color: rgba(77, 133, 255, 0.3);
+    box-shadow: 0 0 15px rgba(77, 133, 255, 0.2);
+    transform: translateY(-3px);
+}
+
+.clothing-icon.active i {
+    color: var(--accent-color);
+}
+
+#clothing-recommendation {
+    text-align: center;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+/* Historical Trends */
+.historical-trends {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    border: var(--glass-border);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
+    margin-top: 20px;
+}
+
+.historical-trends h2 {
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    color: var(--text-secondary);
+}
+
+.trend-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 15px 0 20px;
+}
+
+.trend-item {
+    flex: 1;
+    background-color: rgba(0, 0, 0, 0.15);
+    padding: 16px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.trend-item:hover {
+    background-color: rgba(0, 0, 0, 0.25);
+    transform: translateY(-3px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trend-item p {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.trend-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.trend-indicator .value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.trend-indicator i {
+    font-size: 1rem;
+}
+
+.trend-up i {
+    color: #F87171;
+}
+
+.trend-down i {
+    color: #34D399;
+}
+
+.trend-neutral i {
+    color: #D4D4D8;
+}
+
+/* Fix for button issues - ensure we cover both class and ID selector */
+.history-btn, #historical-data-btn {
+    width: 100%;
+    padding: 12px 15px;
+    margin-top: 10px;
+    background: linear-gradient(to right, rgba(77, 133, 255, 0.1), rgba(77, 133, 255, 0.2));
+    border: 1px solid rgba(77, 133, 255, 0.3);
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    letter-spacing: 0.02em;
+    height: auto;
+    cursor: pointer;
+}
+
+.history-btn:hover, #historical-data-btn:hover {
+    background: linear-gradient(to right, rgba(77, 133, 255, 0.2), rgba(77, 133, 255, 0.3));
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(77, 133, 255, 0.2);
+}
+
+.history-btn:active, #historical-data-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.history-btn i, #historical-data-btn i {
+    font-size: 1rem;
+    color: var(--accent-color);
+}
+
+.history-btn::before, #historical-data-btn::before,
+.profile-btn::before {
+    display: none;
+}
+
+/* Health Profile */
+.health-profile {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    border: var(--glass-border);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
+}
+
+.profile-status {
+    text-align: center;
+    margin: 15px 0;
+}
+
+#profile-status-message {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.profile-btn {
+    background: linear-gradient(135deg, rgba(77, 133, 255, 0.2), rgba(77, 133, 255, 0.3));
+    border: 1px solid rgba(77, 133, 255, 0.4);
+    color: var(--text-primary);
+    padding: 12px 22px;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(77, 133, 255, 0.15);
+    letter-spacing: 0.02em;
+    width: auto;
+    height: auto;
+}
+
+.profile-btn:hover {
+    background: linear-gradient(135deg, rgba(77, 133, 255, 0.3), rgba(77, 133, 255, 0.4));
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(77, 133, 255, 0.2);
+}
+
+.profile-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(77, 133, 255, 0.15);
+}
+
+.profile-btn i {
+    font-size: 0.9rem;
+    color: var(--accent-color);
+}
+
+.profile-btn::before {
+    display: none;
+}
+
+.sensitivities {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.sensitivity {
+    background-color: rgba(77, 133, 255, 0.1);
+    padding: 6px 12px;
+    border-radius: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sensitivity i {
+    color: var(--accent-color);
+    font-size: 0.8rem;
+}
+
+.sensitivity span {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Modal Styling */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(7, 14, 34, 0.8);
+    backdrop-filter: blur(6px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    max-width: 650px;
+    width: 90%;
+    padding: 25px;
+    position: relative;
+    box-shadow: var(--shadow);
+    border: var(--glass-border);
+    max-height: 85vh;
+    overflow-y: auto;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.modal:not(.hidden) .modal-content {
+    transform: translateY(0);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.close-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Modal Headers */
+.modal-content h2 {
+    color: var(--text-primary);
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    font-family: var(--font-heading);
+    padding-right: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+}
+
+.modal-content h3 {
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    margin: 15px 0;
+    font-family: var(--font-heading);
+}
+
+/* History Modal Tab System */
+.history-tabs {
+    display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    padding: 12px 22px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    position: relative;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    font-family: var(--font-main);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    margin-right: 5px;
+    width: auto;
+    height: auto;
+}
+
+.tab-btn:hover {
+    color: var(--text-primary);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.tab-btn::before {
+    display: none;
+}
+
+.tab-btn.active {
+    color: var(--accent-color);
+    background-color: rgba(77, 133, 255, 0.1);
+    font-weight: 500;
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent-color);
+}
+
+.tab-content {
+    padding-top: 10px;
+}
+
+.tab-pane {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.history-chart {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+/* Historical Data Charts */
+.chart-container {
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chart-header {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.chart-header h4 {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+    font-family: var(--font-heading);
+}
+
+.chart-header p {
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+}
+
+.chart-body {
+    display: flex;
+    height: 220px;
+    margin-bottom: 15px;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.chart-y-axis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-right: 10px;
+    width: 45px;
+}
+
+.chart-y-axis span {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+}
+
+.chart-bars {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+/* Day labels for chart bars */
+.day-labels {
+    display: flex;
+    padding: 0 45px 0 0;
+    margin-bottom: 15px;
+}
+
+.day-label {
+    flex: 1;
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--text-tertiary);
+}
+
+.chart-bar {
+    flex: 1;
+    background-color: var(--accent-color);
+    border-radius: 4px 4px 0 0;
+    transition: var(--transition);
+    position: relative;
+}
+
+.chart-bar:hover {
+    opacity: 1 !important;
+    transform: scaleY(1.05);
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.chart-bar:hover::after {
+    content: attr(data-value);
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--secondary-bg);
+    color: var(--text-primary);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    z-index: 5;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chart-footer {
+    text-align: center;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.chart-footer p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+/* Colors for different types of charts */
+.temperature-chart .chart-bar {
+    background: linear-gradient(to top, #FF7E5F, #FEB47B);
+}
+
+.precipitation-chart .chart-bar {
+    background: linear-gradient(to top, #4D85FF, #84B8FF);
+}
+
+.aqi-chart .chart-bar {
+    background: linear-gradient(to top, #56CCF2, #2F80ED);
+}
+
+/* Make the charts responsive on smaller screens */
+@media (max-width: 768px) {
+    .chart-body {
+        height: 180px;
+    }
+    
+    .chart-y-axis {
+        width: 35px;
+    }
+    
+    .day-labels {
+        padding: 0 35px 0 0;
+    }
+    
+    .tab-btn {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .modal-content {
+        padding: 20px;
+        max-height: 90vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .chart-body {
+        height: 150px;
+    }
+    
+    .chart-bars {
+        gap: 3px;
+    }
+    
+    .chart-y-axis {
+        width: 30px;
+    }
+    
+    .day-labels {
+        padding: 0 30px 0 0;
+    }
+    
+    .day-label {
+        font-size: 0.6rem;
+    }
+    
+    .tab-btn {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.4rem;
+    }
+    
+    .modal-content h3 {
+        font-size: 1.1rem;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .top-row {
+        gap: 15px;
+    }
+}
+
+@media (max-width: 992px) {
+    .top-row {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .health-column {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .top-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .details {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .temperature h1 {
+        font-size: 3.5rem;
+    }
+    
+    .aqi-value-display {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .details {
+        grid-template-columns: 1fr;
+    }
+    
+    .forecast-container {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
+/* AQI Display */
+.aqi-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+.aqi-value-display {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 10px;
+    font-family: var(--font-heading);
+}
+
+.aqi-status-display {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 5px 15px;
+    border-radius: 30px;
+}
+
+.current-aqi-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.mini-pollutant {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Pollutant items */
+.pollutant {
+    background-color: rgba(0, 0, 0, 0.15);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.pollutant:hover {
+    background-color: rgba(0, 0, 0, 0.25);
+    transform: translateY(-3px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.pollutant p:first-child {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.pollutant p:last-child {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Health recommendations */
+.health-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.health-recommendations h3 {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 18px 0 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-heading);
+}
+
+.health-recommendations h3 i {
+    color: var(--success-color);
+    font-size: 1rem;
+}
+
+.health-recommendations p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 1rem;
+    font-family: var(--font-main);
+}
+
+/* Alerts Container */
+.alerts-container {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 10px;
+}
+
+.no-alerts {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 30px 20px;
+    font-size: 0.95rem;
+}
+
+.alert-item {
+    background-color: rgba(245, 80, 80, 0.08);
+    border-left: 4px solid rgba(245, 80, 80, 0.8);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.alert-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #F55050;
+}
+
+.alert-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+}
+
+.alert-time {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.form-group select, 
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-family: var(--font-main);
+    transition: var(--transition);
+}
+
+.form-group select:focus,
+.form-group input[type="text"]:focus {
+    border-color: rgba(77, 133, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 2px rgba(77, 133, 255, 0.2);
+    outline: none;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 5px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: normal;
+    cursor: pointer;
+    margin-bottom: 0;
+    color: var(--text-primary);
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent-color);
+}
+
+.save-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    transition: var(--transition);
+}
+
+.save-btn:hover {
+    background-color: #3B6FDB;
+    transform: translateY(-2px);
+}
+
+/* Helper classes */
+.hidden {
+    display: none !important;
+}
+
+/* Loading indicator */
+.loading-recommendations {
+    color: var(--accent-color);
+    font-style: italic;
+    margin: 10px 0;
+    position: relative;
+    padding-left: 25px;
+}
+
+.loading-recommendations::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--accent-color);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: loadingSpin 1s linear infinite;
+}
+
+@keyframes loadingSpin {
+    from {
+        transform: translateY(-50%) rotate(0deg);
+    }
+    to {
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
+/* Adjust card styling for better readability in dark theme */
+.detail, .forecast-card, .pollutant, .weather-info, .aqi-info, 
+.air-quality-details, .health-recommendations, .health-profile,
+.historical-trends, .clothing-recommendations {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Make forecast cards more elegant */
+.forecast-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+    letter-spacing: 0.01em;
+}
+
+.forecast-card .temp {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 12px 0;
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    transition: var(--transition);
+    display: block;
+}
+
+.forecast-card .description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    text-transform: capitalize;
+    margin: 0;
+    font-family: var(--font-main);
+    font-style: italic;
+}
+
+/* Footer with classic style */
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 15px 0;
+    color: var(--text-tertiary);
+    font-size: 0.9rem;
+    font-family: var(--font-main);
+    font-style: italic;
+}
+
+footer span {
+    color: var(--accent-color);
+    font-weight: 600;
+    font-family: var(--font-heading);
+    font-style: normal;
+}
+
+/* Text styling */
+p {
+    line-height: 1.7;
+    margin-bottom: 1em;
+    font-family: var(--font-main);
+    font-size: 1rem;
+}
+
+/* Add additional support for older browsers */
+.temp-freezing, .temp-cold, .temp-mild, .temp-warm, .temp-hot,
+.aqi-good, .aqi-moderate, .aqi-unhealthy-sensitive, .aqi-unhealthy, .aqi-very-unhealthy, .aqi-hazardous {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent; /* For future browser support */
+} 
